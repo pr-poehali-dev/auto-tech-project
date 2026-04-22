@@ -48,6 +48,28 @@ export default function Index() {
   const [galleryFilter, setGalleryFilter] = useState("all");
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
 
+  const [form, setForm] = useState({ tech: "", date: "", name: "", phone: "", comment: "" });
+  const [formSent, setFormSent] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
+  const techOptions = [
+    "Манипулятор 5 т",
+    "Манипулятор 10 т",
+    "Эвакуатор (частичная погрузка)",
+    "Эвакуатор (полная погрузка)",
+    "Погрузчик складской",
+    "Погрузчик телескопический",
+    "Другая техника",
+  ];
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormLoading(true);
+    setTimeout(() => {
+      setFormLoading(false);
+      setFormSent(true);
+    }, 1200);
+  };
+
   const filtered = catalogItems.filter(
     (item) => activeCategory === "Все" || item.category === activeCategory
   );
@@ -87,6 +109,7 @@ export default function Index() {
               { id: "catalog", label: "Каталог" },
               { id: "services", label: "Услуги" },
               { id: "gallery", label: "Галерея" },
+              { id: "order", label: "Заявка" },
             ].map((item) => (
               <button
                 key={item.id}
@@ -241,7 +264,13 @@ export default function Index() {
                   <p className="font-body text-white/40 text-sm mb-4">{item.desc}</p>
                   <div className="flex items-center justify-between">
                     <span className="font-display font-bold text-amber-400 text-lg">{item.price}</span>
-                    <button className="px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-black text-sm font-body font-bold rounded-lg hover:opacity-90 transition-opacity">
+                    <button
+                      onClick={() => {
+                        setForm((f) => ({ ...f, tech: item.name }));
+                        scrollTo("order");
+                      }}
+                      className="px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-black text-sm font-body font-bold rounded-lg hover:opacity-90 transition-opacity"
+                    >
                       Заказать
                     </button>
                   </div>
@@ -383,6 +412,144 @@ export default function Index() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ORDER FORM */}
+      <section id="order" className="relative z-10 py-24 px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="font-body text-amber-400 text-sm font-semibold uppercase tracking-widest mb-3">Онлайн-заявка</p>
+            <h2 className="font-display font-black text-4xl lg:text-5xl text-white mb-4">
+              Оставьте заявку
+            </h2>
+            <p className="font-body text-white/40 max-w-sm mx-auto">
+              Укажите нужную технику и дату — перезвоним за 10 минут и уточним детали
+            </p>
+          </div>
+
+          <div className="relative bg-card rounded-3xl border border-white/8 overflow-hidden">
+            {/* Glow corner */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            {formSent ? (
+              <div className="relative z-10 flex flex-col items-center justify-center py-20 px-8 text-center">
+                <div className="w-20 h-20 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center mb-6">
+                  <Icon name="CheckCircle" size={36} className="text-green-400" />
+                </div>
+                <h3 className="font-display font-black text-2xl text-white mb-3">Заявка принята!</h3>
+                <p className="font-body text-white/50 mb-8 max-w-xs">
+                  Наш диспетчер свяжется с вами в течение 10 минут для подтверждения
+                </p>
+                <button
+                  onClick={() => { setFormSent(false); setForm({ tech: "", date: "", name: "", phone: "", comment: "" }); }}
+                  className="px-6 py-3 bg-white/8 border border-white/12 text-white/70 font-body rounded-xl hover:bg-white/12 transition-colors text-sm"
+                >
+                  Отправить ещё одну заявку
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="relative z-10 p-8 lg:p-10 grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+                {/* Техника */}
+                <div className="sm:col-span-2">
+                  <label className="block font-body text-white/60 text-sm mb-2">Какая техника нужна *</label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                    {techOptions.map((t) => (
+                      <button
+                        key={t}
+                        type="button"
+                        onClick={() => setForm((f) => ({ ...f, tech: t }))}
+                        className={`px-3 py-2.5 rounded-xl text-sm font-body font-medium text-left transition-all duration-150 border ${
+                          form.tech === t
+                            ? "bg-amber-500/20 border-amber-500/60 text-amber-300"
+                            : "bg-white/4 border-white/8 text-white/50 hover:border-white/20 hover:text-white/80"
+                        }`}
+                      >
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Дата */}
+                <div>
+                  <label className="block font-body text-white/60 text-sm mb-2">Дата выезда *</label>
+                  <input
+                    type="date"
+                    required
+                    min={new Date().toISOString().split("T")[0]}
+                    value={form.date}
+                    onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))}
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-body text-sm focus:outline-none focus:border-amber-500/60 focus:bg-white/8 transition-all [color-scheme:dark]"
+                  />
+                </div>
+
+                {/* Имя */}
+                <div>
+                  <label className="block font-body text-white/60 text-sm mb-2">Ваше имя *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Иван"
+                    value={form.name}
+                    onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-body text-sm placeholder:text-white/25 focus:outline-none focus:border-amber-500/60 focus:bg-white/8 transition-all"
+                  />
+                </div>
+
+                {/* Телефон */}
+                <div className="sm:col-span-2">
+                  <label className="block font-body text-white/60 text-sm mb-2">Номер телефона *</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="+7 (___) ___-__-__"
+                    value={form.phone}
+                    onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-body text-sm placeholder:text-white/25 focus:outline-none focus:border-amber-500/60 focus:bg-white/8 transition-all"
+                  />
+                </div>
+
+                {/* Комментарий */}
+                <div className="sm:col-span-2">
+                  <label className="block font-body text-white/60 text-sm mb-2">Комментарий <span className="text-white/30">(необязательно)</span></label>
+                  <textarea
+                    rows={3}
+                    placeholder="Адрес, особенности объекта, количество часов..."
+                    value={form.comment}
+                    onChange={(e) => setForm((f) => ({ ...f, comment: e.target.value }))}
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-body text-sm placeholder:text-white/25 focus:outline-none focus:border-amber-500/60 focus:bg-white/8 transition-all resize-none"
+                  />
+                </div>
+
+                {/* Submit */}
+                <div className="sm:col-span-2 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between pt-2">
+                  <p className="font-body text-white/30 text-xs max-w-xs">
+                    Нажимая кнопку, вы соглашаетесь на обработку персональных данных
+                  </p>
+                  <button
+                    type="submit"
+                    disabled={!form.tech || !form.date || !form.name || !form.phone || formLoading}
+                    className="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-black font-body font-bold rounded-xl hover:opacity-90 transition-all disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+                  >
+                    {formLoading ? (
+                      <>
+                        <Icon name="Loader" size={16} className="text-black animate-spin" />
+                        Отправляем...
+                      </>
+                    ) : (
+                      <>
+                        <Icon name="Send" size={16} className="text-black" />
+                        Отправить заявку
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </section>
