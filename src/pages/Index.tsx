@@ -61,13 +61,19 @@ export default function Index() {
     "Другая техника",
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
-    setTimeout(() => {
+    try {
+      await fetch("https://functions.poehali.dev/0c653fc9-a94e-4863-a547-37927e227b0c", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+    } finally {
       setFormLoading(false);
       setFormSent(true);
-    }, 1200);
+    }
   };
 
   const filtered = catalogItems.filter(
