@@ -1,45 +1,45 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const IMG_PRODUCT = "https://cdn.poehali.dev/projects/8aeef14c-6c80-4e87-a3f2-fdbf827bf2c6/files/95fc9598-4bae-4074-bd3b-1fff0c3ec9b1.jpg";
-const IMG_COLLECTION = "https://cdn.poehali.dev/projects/8aeef14c-6c80-4e87-a3f2-fdbf827bf2c6/files/11cdbca6-33e5-441b-b866-8ad881cdfdbd.jpg";
-const IMG_TEAM = "https://cdn.poehali.dev/projects/8aeef14c-6c80-4e87-a3f2-fdbf827bf2c6/files/623a0a22-3cea-43fe-a8bf-25a8fc73a04b.jpg";
+const IMG_MANIPULATOR = "https://cdn.poehali.dev/projects/8aeef14c-6c80-4e87-a3f2-fdbf827bf2c6/files/6bbd12e4-13c1-4dbd-b44d-cd99db5a6f8d.jpg";
+const IMG_EVACUATOR = "https://cdn.poehali.dev/projects/8aeef14c-6c80-4e87-a3f2-fdbf827bf2c6/files/3f5f5a09-e224-46ca-9e69-0f87780bb474.jpg";
+const IMG_LOADER = "https://cdn.poehali.dev/projects/8aeef14c-6c80-4e87-a3f2-fdbf827bf2c6/files/073539e7-1263-4648-b293-1a6e297abe2c.jpg";
 
 const catalogItems = [
-  { id: 1, name: "Модель PRO X1", category: "Электроника", price: "89 900 ₽", badge: "Хит", img: IMG_PRODUCT },
-  { id: 2, name: "Коллекция LUXE", category: "Аксессуары", price: "24 500 ₽", badge: "Новинка", img: IMG_COLLECTION },
-  { id: 3, name: "Набор ELITE", category: "Премиум", price: "149 000 ₽", badge: "Топ", img: IMG_PRODUCT },
-  { id: 4, name: "Серия ULTRA", category: "Электроника", price: "67 000 ₽", badge: null, img: IMG_COLLECTION },
-  { id: 5, name: "Комплект STUDIO", category: "Аксессуары", price: "39 900 ₽", badge: "Акция", img: IMG_TEAM },
-  { id: 6, name: "Флагман MAX", category: "Премиум", price: "210 000 ₽", badge: "Эксклюзив", img: IMG_PRODUCT },
+  { id: 1, name: "Манипулятор 5 т", category: "Манипуляторы", price: "от 4 500 ₽/час", badge: "Хит", img: IMG_MANIPULATOR, desc: "Грузоподъёмность 5 тонн, стрела 12 м" },
+  { id: 2, name: "Эвакуатор частичная погрузка", category: "Эвакуаторы", price: "от 2 000 ₽", badge: "Популярно", img: IMG_EVACUATOR, desc: "Для легковых авто и малых грузов" },
+  { id: 3, name: "Погрузчик складской", category: "Погрузчики", price: "от 1 800 ₽/час", badge: "Быстро", img: IMG_LOADER, desc: "Грузоподъёмность до 3 тонн" },
+  { id: 4, name: "Манипулятор 10 т", category: "Манипуляторы", price: "от 7 000 ₽/час", badge: "Мощный", img: IMG_MANIPULATOR, desc: "Грузоподъёмность 10 тонн, стрела 18 м" },
+  { id: 5, name: "Эвакуатор полная погрузка", category: "Эвакуаторы", price: "от 3 500 ₽", badge: null, img: IMG_EVACUATOR, desc: "Для кроссоверов, минивэнов и внедорожников" },
+  { id: 6, name: "Погрузчик телескопический", category: "Погрузчики", price: "от 5 500 ₽/час", badge: "Универсальный", img: IMG_LOADER, desc: "Высота подъёма до 7 м, вылет стрелы 4 м" },
 ];
 
-const categories = ["Все", "Электроника", "Аксессуары", "Премиум"];
+const categories = ["Все", "Манипуляторы", "Эвакуаторы", "Погрузчики"];
 
 const services = [
-  { icon: "Zap", title: "Экспресс-доставка", desc: "Доставка до двери в течение 24 часов по всей России", color: "#a855f7" },
-  { icon: "Shield", title: "Гарантия качества", desc: "Официальная гарантия на все товары от 1 до 3 лет", color: "#00f5ff" },
-  { icon: "Headphones", title: "Поддержка 24/7", desc: "Персональный менеджер и круглосуточная техподдержка", color: "#f72585" },
-  { icon: "RefreshCw", title: "Возврат за 30 дней", desc: "Простой возврат без вопросов в течение 30 дней", color: "#39ff14" },
-  { icon: "Star", title: "VIP-программа", desc: "Эксклюзивные предложения и ранний доступ к новинкам", color: "#a855f7" },
-  { icon: "Package", title: "Персональный подбор", desc: "Подберём идеальный вариант под ваш запрос и бюджет", color: "#00f5ff" },
+  { icon: "Clock", title: "Выезд за 30 минут", desc: "Моментально реагируем на заявку и выезжаем в течение 30 минут в любую точку города", color: "#a855f7" },
+  { icon: "Phone", title: "Диспетчер 24/7", desc: "Принимаем заявки круглосуточно, без выходных и праздников", color: "#00f5ff" },
+  { icon: "Shield", title: "Страхование груза", desc: "Все перевозки застрахованы. Несём полную ответственность за сохранность груза", color: "#f72585" },
+  { icon: "Truck", title: "Весь парк в наличии", desc: "Манипуляторы, эвакуаторы, погрузчики — всегда свободны и готовы к выезду", color: "#f59e0b" },
+  { icon: "MapPin", title: "Работаем по региону", desc: "Покрываем весь регион и межгород — везём куда нужно без ограничений", color: "#a855f7" },
+  { icon: "FileText", title: "Договор и чеки", desc: "Официально работаем с ИП и юрлицами, предоставляем все закрывающие документы", color: "#00f5ff" },
 ];
 
 const galleryItems = [
-  { id: 1, type: "photo", img: IMG_PRODUCT, title: "Флагманская линейка 2025" },
-  { id: 2, type: "photo", img: IMG_COLLECTION, title: "Коллекция LUXE Edition" },
-  { id: 3, type: "video", img: IMG_TEAM, title: "Обзор PRO X1 — видео", duration: "3:24" },
-  { id: 4, type: "photo", img: IMG_PRODUCT, title: "Детали и качество" },
-  { id: 5, type: "video", img: IMG_COLLECTION, title: "Распаковка ELITE Set", duration: "7:12" },
-  { id: 6, type: "photo", img: IMG_TEAM, title: "Наша команда" },
+  { id: 1, type: "photo", img: IMG_MANIPULATOR, title: "Манипулятор 10 тонн на объекте" },
+  { id: 2, type: "photo", img: IMG_EVACUATOR, title: "Эвакуатор — ночной выезд" },
+  { id: 3, type: "video", img: IMG_LOADER, title: "Работа погрузчика на складе", duration: "2:14" },
+  { id: 4, type: "photo", img: IMG_MANIPULATOR, title: "Монтаж конструкций манипулятором" },
+  { id: 5, type: "video", img: IMG_EVACUATOR, title: "Эвакуация внедорожника", duration: "1:47" },
+  { id: 6, type: "photo", img: IMG_LOADER, title: "Телескопический погрузчик" },
 ];
 
 const badgeColors: Record<string, string> = {
   "Хит": "bg-purple-500 text-white",
-  "Новинка": "bg-cyan-400 text-black",
-  "Топ": "bg-pink-500 text-white",
-  "Акция": "bg-green-400 text-black",
-  "Эксклюзив": "bg-gradient-to-r from-purple-500 to-pink-500 text-white",
+  "Популярно": "bg-cyan-400 text-black",
+  "Быстро": "bg-green-400 text-black",
+  "Мощный": "bg-pink-500 text-white",
+  "Универсальный": "bg-gradient-to-r from-purple-500 to-pink-500 text-white",
 };
 
 export default function Index() {
@@ -66,18 +66,23 @@ export default function Index() {
       {/* Background mesh */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/3 right-0 w-80 h-80 bg-cyan-400/8 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-0 w-72 h-72 bg-pink-500/8 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 right-0 w-80 h-80 bg-amber-400/6 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-0 w-72 h-72 bg-cyan-500/6 rounded-full blur-3xl" />
       </div>
 
       {/* NAV */}
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-background/70 border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-background/80 border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-display font-black text-lg tracking-tight">
-            <span className="text-purple-400">NEO</span>
-            <span className="text-white">STORE</span>
-          </span>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+              <Icon name="Truck" size={16} className="text-black" />
+            </div>
+            <span className="font-display font-black text-base tracking-tight">
+              <span className="text-amber-400">СПЕЦ</span>
+              <span className="text-white">ТЕХНИКА</span>
+            </span>
+          </div>
+          <div className="hidden sm:flex items-center gap-1">
             {[
               { id: "catalog", label: "Каталог" },
               { id: "services", label: "Услуги" },
@@ -88,7 +93,7 @@ export default function Index() {
                 onClick={() => scrollTo(item.id)}
                 className={`px-4 py-2 rounded-lg text-sm font-body font-medium transition-all duration-200 ${
                   activeSection === item.id
-                    ? "bg-purple-600/20 text-purple-400"
+                    ? "bg-amber-500/20 text-amber-400"
                     : "text-white/60 hover:text-white hover:bg-white/5"
                 }`}
               >
@@ -96,67 +101,88 @@ export default function Index() {
               </button>
             ))}
           </div>
-          <button className="px-5 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-body font-semibold hover:opacity-90 transition-opacity">
-            Связаться
-          </button>
+          <a
+            href="tel:+79000000000"
+            className="flex items-center gap-2 px-5 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-black text-sm font-body font-bold hover:opacity-90 transition-opacity"
+          >
+            <Icon name="Phone" size={14} className="text-black" />
+            Заказать
+          </a>
         </div>
       </nav>
 
       {/* HERO */}
-      <section className="relative z-10 pt-40 pb-24 px-6">
+      <section className="relative z-10 pt-36 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="animate-slide-up">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-600/15 border border-purple-500/20 mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/15 border border-green-500/25 mb-6">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-sm font-body text-white/70">Новая коллекция 2025</span>
+                <span className="text-sm font-body text-green-400 font-medium">Свободна техника — выезд сегодня</span>
               </div>
-              <h1 className="font-display font-black text-5xl lg:text-7xl leading-[1.05] tracking-tight mb-6">
-                <span className="text-white">Будущее</span>
+              <h1 className="font-display font-black text-5xl lg:text-7xl leading-[1.0] tracking-tight mb-6">
+                <span className="text-white">Вся</span>{" "}
+                <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">спецтехника</span>
                 <br />
-                <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-pink-500 bg-clip-text text-transparent">
-                  уже здесь
-                </span>
+                <span className="text-white">в одном</span>
+                <br />
+                <span className="text-white/40">месте</span>
               </h1>
-              <p className="font-body text-white/50 text-lg leading-relaxed mb-10 max-w-md">
-                Эксклюзивные товары премиум-класса. Передовые технологии. Непревзойдённое качество для тех, кто не идёт на компромисс.
+              <p className="font-body text-white/50 text-lg leading-relaxed mb-8 max-w-md">
+                Манипуляторы, эвакуаторы, погрузчики — аренда с водителем. Выезд за 30 минут, страховка груза, работа круглосуточно.
               </p>
-              <div className="flex gap-4">
+
+              {/* Stats */}
+              <div className="flex gap-6 mb-10">
+                {[
+                  { val: "150+", label: "единиц техники" },
+                  { val: "30 мин", label: "время выезда" },
+                  { val: "24/7", label: "диспетчер" },
+                ].map((s) => (
+                  <div key={s.val}>
+                    <p className="font-display font-black text-2xl text-amber-400">{s.val}</p>
+                    <p className="font-body text-white/40 text-xs mt-0.5">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex gap-4 flex-wrap">
                 <button
                   onClick={() => scrollTo("catalog")}
-                  className="px-8 py-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white font-body font-semibold rounded-xl hover:opacity-90 transition-all duration-200 hover:scale-105"
+                  className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-black font-body font-bold rounded-xl hover:opacity-90 transition-all duration-200 hover:scale-105"
                 >
-                  Смотреть каталог
+                  Выбрать технику
                 </button>
                 <button
-                  onClick={() => scrollTo("gallery")}
+                  onClick={() => scrollTo("services")}
                   className="px-8 py-4 bg-white/5 border border-white/10 text-white font-body font-semibold rounded-xl hover:bg-white/10 transition-all duration-200 hover:scale-105"
                 >
-                  Галерея
+                  Наши услуги
                 </button>
               </div>
             </div>
+
             <div className="relative animate-float">
-              <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: "0 0 40px rgba(168,85,247,0.3)" }}>
-                <img src={IMG_PRODUCT} alt="Hero" className="w-full h-[480px] object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: "0 0 50px rgba(251,191,36,0.2)" }}>
+                <img src={IMG_MANIPULATOR} alt="Манипулятор" className="w-full h-[480px] object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="backdrop-blur-md bg-white/10 border border-white/15 rounded-xl p-4">
                     <div className="flex justify-between items-center">
                       <div>
-                        <p className="font-body text-white/60 text-xs mb-1">Флагман сезона</p>
-                        <p className="font-display font-bold text-white text-lg">PRO X1 Ultra</p>
+                        <p className="font-body text-white/50 text-xs mb-1">Флагман парка</p>
+                        <p className="font-display font-bold text-white text-base">Манипулятор 10 тонн</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-body text-white/60 text-xs mb-1">от</p>
-                        <p className="font-display font-bold text-cyan-400 text-xl">89 900 ₽</p>
+                        <p className="font-body text-white/50 text-xs mb-1">от</p>
+                        <p className="font-display font-bold text-amber-400 text-xl">7 000 ₽/час</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-2xl opacity-40" />
-              <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-cyan-400 rounded-full blur-2xl opacity-20" />
+              <div className="absolute -top-4 -right-4 w-28 h-28 bg-amber-400 rounded-full blur-3xl opacity-20" />
+              <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-purple-500 rounded-full blur-2xl opacity-20" />
             </div>
           </div>
         </div>
@@ -167,9 +193,9 @@ export default function Index() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
-              <p className="font-body text-purple-400 text-sm font-semibold uppercase tracking-widest mb-3">Каталог</p>
+              <p className="font-body text-amber-400 text-sm font-semibold uppercase tracking-widest mb-3">Каталог техники</p>
               <h2 className="font-display font-black text-4xl lg:text-5xl text-white leading-tight">
-                Наши товары
+                Выберите технику
               </h2>
             </div>
             <div className="flex gap-2 flex-wrap">
@@ -179,7 +205,7 @@ export default function Index() {
                   onClick={() => setActiveCategory(cat)}
                   className={`px-5 py-2 rounded-xl text-sm font-body font-medium transition-all duration-200 ${
                     activeCategory === cat
-                      ? "bg-purple-500 text-white scale-105"
+                      ? "bg-amber-500 text-black font-bold scale-105"
                       : "bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10"
                   }`}
                 >
@@ -193,10 +219,10 @@ export default function Index() {
             {filtered.map((item, idx) => (
               <div
                 key={item.id}
-                className="group relative bg-card rounded-2xl overflow-hidden border border-white/5 hover:border-purple-500/30 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+                className="group relative bg-card rounded-2xl overflow-hidden border border-white/5 hover:border-amber-500/30 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
                 style={{ animationDelay: `${idx * 0.08}s` }}
               >
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative h-52 overflow-hidden">
                   <img
                     src={item.img}
                     alt={item.name}
@@ -204,21 +230,19 @@ export default function Index() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                   {item.badge && (
-                    <span className={`absolute top-4 left-4 text-xs font-body font-bold px-3 py-1 rounded-full ${badgeColors[item.badge] || "bg-white text-black"}`}>
+                    <span className={`absolute top-4 left-4 text-xs font-body font-bold px-3 py-1 rounded-full ${badgeColors[item.badge] || "bg-amber-400 text-black"}`}>
                       {item.badge}
                     </span>
                   )}
-                  <button className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Icon name="Heart" size={14} className="text-white" />
-                  </button>
                 </div>
                 <div className="p-5">
                   <p className="font-body text-white/40 text-xs uppercase tracking-widest mb-1">{item.category}</p>
-                  <h3 className="font-display font-bold text-white text-lg mb-3">{item.name}</h3>
+                  <h3 className="font-display font-bold text-white text-lg mb-1">{item.name}</h3>
+                  <p className="font-body text-white/40 text-sm mb-4">{item.desc}</p>
                   <div className="flex items-center justify-between">
-                    <span className="font-display font-bold text-cyan-400 text-xl">{item.price}</span>
-                    <button className="px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-700 text-white text-sm font-body font-semibold rounded-lg hover:opacity-90 transition-opacity">
-                      Купить
+                    <span className="font-display font-bold text-amber-400 text-lg">{item.price}</span>
+                    <button className="px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-black text-sm font-body font-bold rounded-lg hover:opacity-90 transition-opacity">
+                      Заказать
                     </button>
                   </div>
                 </div>
@@ -230,19 +254,18 @@ export default function Index() {
 
       {/* SERVICES */}
       <section id="services" className="relative z-10 py-24 px-6">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <p className="font-body text-cyan-400 text-sm font-semibold uppercase tracking-widest mb-3">Услуги</p>
+            <p className="font-body text-cyan-400 text-sm font-semibold uppercase tracking-widest mb-3">Почему выбирают нас</p>
             <h2 className="font-display font-black text-4xl lg:text-5xl text-white mb-4">
-              Всё для вашего
+              Надёжно.
               <br />
               <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                удобства
+                Быстро. Выгодно.
               </span>
             </h2>
             <p className="font-body text-white/40 max-w-md mx-auto">
-              Мы позаботились о каждой детали, чтобы покупка была максимально комфортной
+              10 лет на рынке спецтехники. Тысячи выполненных заявок. Доверяйте профессионалам.
             </p>
           </div>
 
@@ -253,7 +276,7 @@ export default function Index() {
                 className="group relative bg-card rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-all duration-300 hover:scale-[1.02] overflow-hidden"
               >
                 <div
-                  className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                  className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-0 group-hover:opacity-15 transition-opacity duration-500"
                   style={{ background: service.color }}
                 />
                 <div
@@ -270,15 +293,25 @@ export default function Index() {
 
           {/* CTA Banner */}
           <div className="mt-12 relative rounded-3xl overflow-hidden">
-            <img src={IMG_TEAM} alt="Team" className="w-full h-64 object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+            <img src={IMG_EVACUATOR} alt="Эвакуатор" className="w-full h-64 object-cover object-center" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-transparent" />
             <div className="absolute inset-0 flex items-center px-10">
               <div>
-                <h3 className="font-display font-black text-3xl text-white mb-3">Нужна консультация?</h3>
-                <p className="font-body text-white/60 mb-6 max-w-sm">Наши эксперты помогут подобрать идеальное решение под ваши задачи</p>
-                <button className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-body font-semibold rounded-xl hover:opacity-90 transition-opacity">
-                  Получить консультацию
-                </button>
+                <h3 className="font-display font-black text-3xl text-white mb-2">Нужна техника прямо сейчас?</h3>
+                <p className="font-body text-white/60 mb-6 max-w-sm">Звоните — диспетчер ответит немедленно и оформит заявку за 2 минуты</p>
+                <div className="flex gap-3 flex-wrap">
+                  <a
+                    href="tel:+79000000000"
+                    className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-black font-body font-bold rounded-xl hover:opacity-90 transition-opacity"
+                  >
+                    <Icon name="Phone" size={16} className="text-black" />
+                    Позвонить
+                  </a>
+                  <button className="flex items-center gap-2 px-8 py-3 bg-white/10 border border-white/20 text-white font-body font-semibold rounded-xl hover:bg-white/15 transition-colors backdrop-blur-sm">
+                    <Icon name="MessageCircle" size={16} className="text-white" />
+                    Написать
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -290,7 +323,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
-              <p className="font-body text-pink-400 text-sm font-semibold uppercase tracking-widest mb-3">Галерея</p>
+              <p className="font-body text-pink-400 text-sm font-semibold uppercase tracking-widest mb-3">Наши работы</p>
               <h2 className="font-display font-black text-4xl lg:text-5xl text-white leading-tight">
                 Фото & Видео
               </h2>
@@ -357,7 +390,7 @@ export default function Index() {
       {/* Lightbox */}
       {selectedItem && (
         <div
-          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-6"
+          className="fixed inset-0 z-[100] bg-black/92 backdrop-blur-xl flex items-center justify-center p-6"
           onClick={() => setSelectedItem(null)}
         >
           <button
@@ -366,7 +399,7 @@ export default function Index() {
           >
             <Icon name="X" size={18} className="text-white" />
           </button>
-          <div className="max-w-4xl w-full animate-fade-in-scale" onClick={(e) => e.stopPropagation()}>
+          <div className="max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
             {(() => {
               const item = galleryItems.find((g) => g.id === selectedItem);
               if (!item) return null;
@@ -386,13 +419,26 @@ export default function Index() {
 
       {/* FOOTER */}
       <footer className="relative z-10 border-t border-white/5 py-12 px-6 mt-12">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="font-display font-black text-lg">
-            <span className="text-purple-400">NEO</span>
-            <span className="text-white">STORE</span>
-          </span>
-          <p className="font-body text-white/30 text-sm">© 2025 NEOSTORE. Все права защищены.</p>
-          <div className="flex gap-4">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+                <Icon name="Truck" size={14} className="text-black" />
+              </div>
+              <span className="font-display font-black text-base">
+                <span className="text-amber-400">СПЕЦ</span>
+                <span className="text-white">ТЕХНИКА</span>
+              </span>
+            </div>
+            <p className="font-body text-white/30 text-sm">Аренда спецтехники с водителем</p>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <a href="tel:+79000000000" className="font-display font-bold text-white text-xl hover:text-amber-400 transition-colors">
+              +7 (900) 000-00-00
+            </a>
+            <p className="font-body text-white/30 text-xs">Звонки принимаются 24/7</p>
+          </div>
+          <div className="flex gap-3">
             <button className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
               <Icon name="Instagram" size={16} className="text-white/60" />
             </button>
@@ -400,9 +446,12 @@ export default function Index() {
               <Icon name="Send" size={16} className="text-white/60" />
             </button>
             <button className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
-              <Icon name="Phone" size={16} className="text-white/60" />
+              <Icon name="MessageCircle" size={16} className="text-white/60" />
             </button>
           </div>
+        </div>
+        <div className="max-w-7xl mx-auto mt-8 pt-6 border-t border-white/5">
+          <p className="font-body text-white/20 text-sm text-center">© 2025 СПЕЦТЕХНИКА. Все права защищены.</p>
         </div>
       </footer>
     </div>
